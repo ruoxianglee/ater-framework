@@ -1,0 +1,159 @@
+named_paths:
+- path_name: target_path
+  node_chain:
+  - node_name: /FrontLidarDriver
+    publish_topic_name: /FrontLidarDriver
+    subscribe_topic_name: UNDEFINED
+  - node_name: /PointsTransformerFront
+    publish_topic_name: /PointsTransformerFront
+    subscribe_topic_name: /FrontLidarDriver
+  - node_name: /RayGroundFilter
+    publish_topic_name: /RayGroundFilter
+    subscribe_topic_name: /PointsTransformerFront
+  - node_name: /EuclideanClusterDetector
+    publish_topic_name: /EuclideanClusterDetector
+    subscribe_topic_name: /RayGroundFilter
+  - node_name: /ObjectCollisionEstimator
+    publish_topic_name: UNDEFINED
+    subscribe_topic_name: /EuclideanClusterDetector
+executors:
+- executor_type: single_threaded_executor
+  executor_name: executor_1
+  callback_group_names:
+  - /FrontLidarDriver/callback_group_0
+- executor_type: single_threaded_executor
+  executor_name: executor_2
+  callback_group_names:
+  - /PointsTransformerFront/callback_group_0
+- executor_type: single_threaded_executor
+  executor_name: executor_3
+  callback_group_names:
+  - /RayGroundFilter/callback_group_0
+- executor_type: single_threaded_executor
+  executor_name: executor_4
+  callback_group_names:
+  - /EuclideanClusterDetector/callback_group_0
+- executor_type: single_threaded_executor
+  executor_name: executor_5
+  callback_group_names:
+  - /ObjectCollisionEstimator/callback_group_0
+nodes:
+- node_name: /FrontLidarDriver
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /FrontLidarDriver/callback_group_0
+    callback_names:
+    - /FrontLidarDriver/callback_0
+  callbacks:
+  - callback_name: /FrontLidarDriver/callback_0
+    callback_type: timer_callback
+    period_ns: 100000000
+    symbol: nodes::rclcpp_system::Sensor::Sensor(nodes::SensorSettings const&)::{lambda()#1}
+  publishes:
+  - topic_name: /FrontLidarDriver
+    callback_names:
+    - /FrontLidarDriver/callback_0
+- node_name: /PointsTransformerFront
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /PointsTransformerFront/callback_group_0
+    callback_names:
+    - /PointsTransformerFront/callback_0
+  callbacks:
+  - callback_name: /PointsTransformerFront/callback_0
+    callback_type: subscription_callback
+    topic_name: /FrontLidarDriver
+    symbol: nodes::rclcpp_system::NewTransform::NewTransform(nodes::NewTransformSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  publishes:
+  - topic_name: /PointsTransformerFront
+    callback_names:
+    - /PointsTransformerFront/callback_0
+  subscribes:
+  - topic_name: /FrontLidarDriver
+    callback_name: /PointsTransformerFront/callback_0
+  message_contexts:
+  - context_type: callback_chain
+    subscription_topic_name: /FrontLidarDriver
+    publisher_topic_name: /PointsTransformerFront
+    callbacks:
+    - /PointsTransformerFront/callback_0
+- node_name: /RayGroundFilter
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /RayGroundFilter/callback_group_0
+    callback_names:
+    - /RayGroundFilter/callback_0
+  callbacks:
+  - callback_name: /RayGroundFilter/callback_0
+    callback_type: subscription_callback
+    topic_name: /PointsTransformerFront
+    symbol: nodes::rclcpp_system::NewTransform::NewTransform(nodes::NewTransformSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  publishes:
+  - topic_name: /RayGroundFilter
+    callback_names:
+    - /RayGroundFilter/callback_0
+  subscribes:
+  - topic_name: /PointsTransformerFront
+    callback_name: /RayGroundFilter/callback_0
+  message_contexts:
+  - context_type: callback_chain
+    subscription_topic_name: /PointsTransformerFront
+    publisher_topic_name: /RayGroundFilter
+    callbacks:
+    - /RayGroundFilter/callback_0
+- node_name: /EuclideanClusterDetector
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /EuclideanClusterDetector/callback_group_0
+    callback_names:
+    - /EuclideanClusterDetector/callback_0
+  callbacks:
+  - callback_name: /EuclideanClusterDetector/callback_0
+    callback_type: subscription_callback
+    topic_name: /RayGroundFilter
+    symbol: nodes::rclcpp_system::NewTransform::NewTransform(nodes::NewTransformSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  publishes:
+  - topic_name: /EuclideanClusterDetector
+    callback_names:
+    - /EuclideanClusterDetector/callback_0
+  subscribes:
+  - topic_name: /RayGroundFilter
+    callback_name: /EuclideanClusterDetector/callback_0
+  message_contexts:
+  - context_type: callback_chain
+    subscription_topic_name: /RayGroundFilter
+    publisher_topic_name: /EuclideanClusterDetector
+    callbacks:
+    - /EuclideanClusterDetector/callback_0
+- node_name: /ObjectCollisionEstimator
+  callback_groups:
+  - callback_group_type: mutually_exclusive
+    callback_group_name: /ObjectCollisionEstimator/callback_group_0
+    callback_names:
+    - /ObjectCollisionEstimator/callback_0
+  callbacks:
+  - callback_name: /ObjectCollisionEstimator/callback_0
+    callback_type: subscription_callback
+    topic_name: /EuclideanClusterDetector
+    symbol: nodes::rclcpp_system::NewTransform::NewTransform(nodes::NewTransformSettings
+      const&)::{lambda(std::shared_ptr<reference_interfaces::msg::Message4kb_<std::allocator<void>
+      > >)#1}
+  publishes:
+  - topic_name: /ObjectCollisionEstimator
+    callback_names:
+    - /ObjectCollisionEstimator/callback_0
+  subscribes:
+  - topic_name: /EuclideanClusterDetector
+    callback_name: /ObjectCollisionEstimator/callback_0
+  message_contexts:
+  - context_type: callback_chain
+    subscription_topic_name: /EuclideanClusterDetector
+    publisher_topic_name: /ObjectCollisionEstimator
+    callbacks:
+    - /ObjectCollisionEstimator/callback_0
