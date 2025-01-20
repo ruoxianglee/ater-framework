@@ -27,6 +27,9 @@ file_saving_cputime = open(outfile2, 'w')
 outfile3 = sys.argv[5]
 file_saving_throughput = open(outfile3, 'w')
 
+outfile4 = sys.argv[6]
+file_saving_execution_time = open(outfile4, 'w')
+
 arch_file = './arch/architecture.yaml'
 
 ##############################
@@ -176,6 +179,7 @@ while True:
     
     end_time = time.time()
     elapsed_time = end_time - start_time
+    file_saving_execution_time.write("%f\n" % elapsed_time)
     if epoch == 30:
         live_reader.stop_consume()
         exit()
