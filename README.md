@@ -47,7 +47,13 @@
   ```
 
 ### Build ROS 2 Application (Autoware-reference System)
+
 ```
+mkdir ros2_ws & cd ros2_ws & mkdir src
+# then clone autoware_reference_system into src
+
+cd ~/ros2_ws
+
 source /opt/ros/humble/setup.bash
 source ~/ros2_caret_ws/install/local_setup.bash
 colcon build --symlink-install --packages-up-to autoware_reference_system --cmake-args -DBUILD_TESTING=OFF
