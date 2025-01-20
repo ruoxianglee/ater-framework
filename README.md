@@ -8,8 +8,6 @@
     ```bash
     sudo apt-get install uuid-dev
     ```
-- [jsonbuilder](https://github.com/microsoft/jsonbuilder/tree/master/include/jsonbuilder)
-- [lttng-consume](https://github.com/microsoft/lttng-consume)
 - [ROS 2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 - CARET with Live Tracing Mode
 - Customized Autoware Reference System
