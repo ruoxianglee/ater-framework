@@ -31,11 +31,20 @@
 
 ## Build 
 ### Build Caret
-```
-cd ros2_caret_ws
-source /opt/ros/humble/setup.bash
-colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
-```
+1. Following [instructions](https://tier4.github.io/caret_doc/main/installation/installation/) to set caret environment.
+
+2. Build the workspace
+  ```
+  cd ros2_caret_ws
+  source /opt/ros/humble/setup.bash
+  colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+  ```
+
+3. Check whether CARET (ros2-tracing) is enabled.
+  ```
+  source ~/ros2_caret_ws/install/local_setup.bash
+  ros2 run tracetools status # return Tracing enabled
+  ```
 
 ### Build ROS 2 Application (Autoware-reference System)
 ```
