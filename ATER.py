@@ -180,7 +180,7 @@ while True:
     end_time = time.time()
     elapsed_time = end_time - start_time
     file_saving_execution_time.write("%f\n" % elapsed_time)
-    if epoch == 30:
+    if epoch == 3000:
         live_reader.stop_consume()
         exit()
     epoch+=1
